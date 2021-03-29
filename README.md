@@ -1,48 +1,12 @@
-Windows Server 2019 DISA STIG
-=========
+# Agnes
 
-Configure a Windows Server 2019 system to be DISA STIG compliant. All findings will be audited by default. Non-disruptive CAT I, CAT II, and CAT III findings will be corrected by default. ~Disruptive finding remediation can be enabled by setting `rhel7stig_disruption_high` to `yes`.~ _To be implemented_
+A landing page template.
 
-This role is based on Windows Server 2019 DISA STIG: [Version 2, Rel 1 released on November 13, 2020](Need URL HEre).
+* [Getting started](#getting-started)
 
-Requirements
-------------
+## Getting started
+* First, ensure that node.js & npm are both installed. If not, choose your OS and installation method from [this page](https://nodejs.org/en/download/package-manager/) and follow the instructions.
+* Next, use your command line to enter your project directory.
+* This template comes with a ready-to-use package file called `package-sample.json`. You just need to rename it to `package.json`, then run `npm install` to install all of the dependencies into your project.
 
-Windows Server 2019 - Other versions are not supported.
-
-Dependencies
-------------
-
-The following packages must be installed on the controlling host/host where ansible is executed:
-
-- passlib (or python2-passlib, if using python2)
-- python-lxml
-- python-xmltodict
-- python-jmespath
-- pywinrm
-
-Package 'python-xmltodict' is required if you enable the OpenSCAP tool installation and run a report. Packages python(2)-passlib and python-jmespath are required for tasks with custom filters or modules. These are all required on the controller host that executes Ansible.
-
-Role Variables
---------------
-
-Please see the Ansible docs for understanding [variable precedence](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable) to tailor for your needs. 
-
-| Name                     | Default Value       | Description                   |
-|--------------------------|-----------------------------------------------------|----------------------|
-| `win2019stig_cat1_patch` | `yes` see defaults/main.yml](./defaults/main.yml)   | Correct CAT I findings        |
-| `win2019stig_cat2_patch` | `yes`  see defaults/main.yml](./defaults/main.yml)  | Correct CAT II findings       |
-| `win2019stig_cat3_patch` | `yes`  see defaults/main.yml](./defaults/main.yml)  | Correct CAT III findings      |
-| `wn19_##_######`         | [see defaults/main.yml](./defaults/main.yml)        | Individual variables to enable/disable each STIG ID. |
-
-Example Playbook
-----------------
-
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
-      roles:
-         - role: win-2k19-stig
-           when:
-                - ansible_os_family == 'Windows'
-                - ansible_distribution | regex_search('(Server 2019)')
+You're ready to go! Run any task by typing `npm run task` (where "task" is the name of the task in the `"scripts"` object). The most useful task for rapid development is `watch`. It will start a new server, open up a browser and watch for any SCSS or JS changes in the `src` directory; once it compiles those changes, the browser will automatically inject the changed file(s)!
