@@ -33,10 +33,10 @@ win2019stig_workaround_for_ssg_benchmark: true
 # tweak role to run in a non-privileged container
 win2019stig_system_is_container: no
 
-#set to false to skip tasks that either have not been developed or cannot be automated
+# set to false to skip tasks that either have not been developed or cannot be automated
 is_implemented: false
 
-#set to false to skip long running tasks
+# set to false to skip long running tasks
 long_running: false
 
 # These variables correspond with the STIG IDs defined in the STIG and allows you to enable/disable specific rules.

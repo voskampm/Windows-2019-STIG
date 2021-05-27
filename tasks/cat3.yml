@@ -232,7 +232,7 @@
       path: HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeliveryOptimization
       state: present
       value: DODownloadMode
-      data: 1 
+      data: 1
       datatype: dword
   when: wn19_cc_000260
   tags:
