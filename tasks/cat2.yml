@@ -231,7 +231,7 @@
   block:
       - name: "MEDIUM | WN19-00-000140 | AUDIT | Windows Server 2019 permissions for the system drive root directory usually C:\ must conform to minimum requirements."
         win_shell: echo true
-        #https://vaulted.io/library/disa-stigs-srgs/windows_server_2019_stig/V-93293
+        # https://vaulted.io/library/disa-stigs-srgs/windows_server_2019_stig/V-93293
         register: wn19_00_000140_audit
         check_mode: no
         changed_when: no
@@ -356,7 +356,7 @@
         check_mode: no
         changed_when: wn19_00_000200_audit_dc.stdout != ""
         when: ansible_windows_domain_role == "Primary domain controller"
-        
+
       - name: "MEDIUM | WN19-00-000200 | AUDIT - DOMAIN CONTROLLER | Windows Server 2019 accounts must require passwords."
         debug:
             msg:
@@ -558,7 +558,7 @@
         check_mode: no
         changed_when: no
         tags: audit
-        
+
       - name: "MEDIUM | WN19-00-000270 | PATCH | Windows Server 2019 must have the roles and features required by the system documented."
         win_shell: echo true
         changed_when: no
@@ -646,13 +646,13 @@
       - CCI-000016
       - medium
       # how? prompt customer provided name list? scan against local account names for unknown ones?
-      #Speelman | requires input of the names of emergency user account
-      #Speelman | Could add variable instead of  hardcoding 72 hours
+      # Speelman | requires input of the names of emergency user account
+      # Speelman | Could add variable instead of  hardcoding 72 hours
 
 - name: "MEDIUM | WN19-00-000320 | Windows Server 2019 must not have the Fax Server role installed."
   win_feature:
-    name: Fax
-    state: absent
+      name: Fax
+      state: absent
   notify: reboot_windows
   when: wn19_00_000320
   tags:
@@ -1239,7 +1239,7 @@
         changed_when: "'Success' not in wn19_au_000080_audit.stdout"
         ignore_errors: yes
         tags: audit
-          
+
       - name: "MEDIUM | WN19-AU-000080 | PATCH | Windows Server 2019 must be configured to audit Account Logon - Credential Validation failures."
         win_shell: AuditPol /set /subcategory:"Credential Validation" /failure:enable
         when: wn19_au_000080_audit is defined
@@ -1917,7 +1917,7 @@
         check_mode: no
         changed_when: "'Failure' not in wn19_au_000390_audit.stdout"
         tags: audit
-          
+
       - name: "MEDIUM | WN19-AU-000390 | PATCH | Windows Server 2019 must be configured to audit System - System Integrity failures."
         win_shell: AuditPol /set /subcategory:"System Integrity" /failure:enable
         check_mode: no
@@ -2240,8 +2240,8 @@
             data: "{{ wn19_cc_000270_app_maxsize }}"
             datatype: dword
         when:
-          - wn19_cc_000270_audit is defined
-          - not wn19_cc_000270_audit.exists or wn19_cc_000270_audit.value < 32768
+            - wn19_cc_000270_audit is defined
+            - not wn19_cc_000270_audit.exists or wn19_cc_000270_audit.value < 32768
         tags: patch
   when: wn19_cc_000270
   tags:
@@ -2269,9 +2269,9 @@
             value: MaxSize
             data: "{{ wn19_cc_000280_sec_maxsize }}"
             datatype: dword
-        when: 
-          - wn19_cc_000280_audit is defined
-          - not wn19_cc_000280_audit.exists or wn19_cc_000280_audit.value < 196608
+        when:
+            - wn19_cc_000280_audit is defined
+            - not wn19_cc_000280_audit.exists or wn19_cc_000280_audit.value < 196608
         tags: patch
   when: wn19_cc_000280
   tags:
@@ -2299,9 +2299,9 @@
             value: MaxSize
             data: "{{ wn19_cc_000290_sys_maxsize }}"
             datatype: dword
-        when: 
-          - wn19_cc_000290_audit is defined
-          - not wn19_cc_000290_audit.exists or wn19_cc_000290_audit.value < 32768
+        when:
+            - wn19_cc_000290_audit is defined
+            - not wn19_cc_000290_audit.exists or wn19_cc_000290_audit.value < 32768
         tags: patch
   when: wn19_cc_000290
   tags:
@@ -3025,7 +3025,7 @@
         check_mode: no
         changed_when: "'Success' not in wn19_dc_000230_audit.stdout"
         tags: audit
-          
+
       - name: "MEDIUM | WN19-DC-000230 | PATCH | Windows Server 2019 must be configured to audit Account Management - Computer Account Management successes."
         win_shell: AuditPol /set /subcategory:"Computer Account Management" /success:enable
         when: "'Success' not in wn19_dc_000230_audit.stdout"
@@ -3442,8 +3442,8 @@
 - name: "MEDIUM | WN19-EP-000010 | Windows Server 2019 Exploit Protection system-level mitigation, Data Execution Prevention (DEP), must be on."
   command: "echo true"
   when:
-    - wn19_ep_000010
-    - is_implemented
+      - wn19_ep_000010
+      - is_implemented
   tags:
       - WN19-EP-000010
       - V-93313
@@ -3594,18 +3594,18 @@
 
 - name: "MEDIUM | WN19-EP-000100 | Windows Server 2019 Exploit Protection mitigations must be configured for firefox.exe."
   block:
-    - name: "MEDIUM | WN19-EP-000100 | AUDIT | Windows Server 2019 Exploit Protection mitigations must be configured for firefox.exe."
-      win_shell: "echo true"
-      register: wn19_ep_000100_audit
-      check_mode: no
-      changed_when: no
-      tags: audit
+      - name: "MEDIUM | WN19-EP-000100 | AUDIT | Windows Server 2019 Exploit Protection mitigations must be configured for firefox.exe."
+        win_shell: "echo true"
+        register: wn19_ep_000100_audit
+        check_mode: no
+        changed_when: no
+        tags: audit
 
-    - name: "MEDIUM | WN19-EP-000100 | PATCH | Windows Server 2019 Exploit Protection mitigations must be configured for firefox.exe."
-      win_shell: "echo true"
-      register: wn19_ep_000100_patch
-      changed_when: wn19_ep_000100_patch.stdout == "SET"
-      tags: patch
+      - name: "MEDIUM | WN19-EP-000100 | PATCH | Windows Server 2019 Exploit Protection mitigations must be configured for firefox.exe."
+        win_shell: "echo true"
+        register: wn19_ep_000100_patch
+        changed_when: wn19_ep_000100_patch.stdout == "SET"
+        tags: patch
   when:
       - wn19_ep_000100
       - is_implemented
@@ -3969,18 +3969,18 @@
 
 - name: "MEDIUM | WN19-EP-000250 | Windows Server 2019 Exploit Protection mitigations must be configured for VISIO.EXE."
   block:
-    - name: "MEDIUM | WN19-EP-000250 | AUDIT | Windows Server 2019 Exploit Protection mitigations must be configured for VISIO.EXE."
-      win_shell: "echo true"
-      register: wn19_ep_000250_audit
-      check_mode: no
-      changed_when: no
-      tags: audit
+      - name: "MEDIUM | WN19-EP-000250 | AUDIT | Windows Server 2019 Exploit Protection mitigations must be configured for VISIO.EXE."
+        win_shell: "echo true"
+        register: wn19_ep_000250_audit
+        check_mode: no
+        changed_when: no
+        tags: audit
 
-    - name: "MEDIUM | WN19-EP-000250 | PATCH | Windows Server 2019 Exploit Protection mitigations must be configured for VISIO.EXE."
-      win_shell: "echo true"
-      register: wn19_ep_000250_patch
-      changed_when: wn19_ep_000250_patch.stdout == "SET"
-      tags: patch
+      - name: "MEDIUM | WN19-EP-000250 | PATCH | Windows Server 2019 Exploit Protection mitigations must be configured for VISIO.EXE."
+        win_shell: "echo true"
+        register: wn19_ep_000250_patch
+        changed_when: wn19_ep_000250_patch.stdout == "SET"
+        tags: patch
   when:
       - wn19_ep_000250
       - is_implemented
@@ -4223,7 +4223,7 @@
             action: set
         when: ansible_windows_domain_role == "Member server"
         tags: audit
-          
+
       - name: "MEDIUM | WN19-MS-000080 | PATCH | Windows Server 2019 Deny access to this computer from the network user right on domain-joined member servers must be configured to prevent access from highly privileged domain accounts and local accounts and from unauthenticated access on all systems."
         win_user_right:
             name: SeDenyNetworkLogonRight
@@ -4379,7 +4379,7 @@
         check_mode: no
         changed_when: no
         tags: audit
-  when: 
+  when:
       - wn19_PK_000010
       - is_implemented
   tags:
@@ -5092,7 +5092,7 @@
       - CCI-002235
       - medium
       - patch
-      #[WARNING]: Using this module to edit rights and privileges is error-prone, use the win_user_right module instead
+      # [WARNING]: Using this module to edit rights and privileges is error-prone, use the win_user_right module instead
 
 - name: "MEDIUM | WN19-UR-000030 | Windows Server 2019 Allow log on locally user right must only be assigned to the Administrators group."
   win_user_right:
@@ -5382,4 +5382,3 @@
       - CCI-002235
       - medium
       - patch
-
