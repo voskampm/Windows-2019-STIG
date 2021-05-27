@@ -19,5 +19,6 @@
   tags:
       - always
 # remove this debug or set a verb level
-- debug:
+- name: check rdp is enabled
+  debug:
       var: win2019_rdp_enabled.value
