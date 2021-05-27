@@ -876,22 +876,13 @@
       # https://www.stigviewer.com/stig/windows_server_2016/2019-01-16/finding/V-78127
 
 # below task is dependent on WN19-AC-000020 and WN19-AC-000030, maybe custom fail when known error if WN19-AC-000020 not set? "The key 'LockoutDuration' in section 'System Access' is not a valid key, cannot set this value"
-- name: "MEDIUM | WN19-AC-000010 | Windows Server 2019 account lockout duration must be configured to 15 minutes or greater."
-  block:
-      - name: "MEDIUM | WN19-AC-000010 | AUDIT | Windows Server 2019 account lockout duration must be configured to 15 minutes or greater."
-        assert:
-            that: wn19_ac_000010_lockoutduration | int is version('15', '<=')
-            fail_msg: "Must have the period of time before the bad logon counter is reset configured to 15 minutes or greater and variable wn19_ac_000010_lockoutduration is set to {{ wn19_ac_000010_lockoutduration }}"
-        ignore_errors: yes
-        tags: audit
-
-      - name: "MEDIUM | WN19-AC-000010 | PATCH | Windows Server 2019 account lockout duration must be configured to 15 minutes or greater."
-        win_security_policy:
-            section: System Access
-            key: LockoutDuration
-            value: "{{ wn19_ac_000010_lockoutduration }}"
-        tags: patch
-  when: wn19_ac_000010 | bool
+- name: "MEDIUM | WN19-AC-000010 | PATCH | Windows Server 2019 account lockout duration must be configured to 15 minutes or greater."
+  win_security_policy:
+      section: System Access
+      key: LockoutDuration
+      value: "{{ wn19_ac_000010_lockoutduration }}"
+  when:
+      - wn19_ac_000010
   tags:
       - WN19-AC-000010
       - V-93145
@@ -916,21 +907,11 @@
       - patch
 
 # below task is dependent on WN16-AC-000020, maybe custom fail when known error if WN16-AC-000020 not set? "The key 'ResetLockoutCount' in section 'System Access' is not a valid key, cannot set this value"
-- name: "MEDIUM | WN19-AC-000030 | Windows Server 2019 must have the period of time before the bad logon counter is reset configured to 15 minutes or greater."
-  block:
-      - name: "MEDIUM | WN19-AC-000030 | AUDIT | Windows Server 2019 must have the period of time before the bad logon counter is reset configured to 15 minutes or greater."
-        assert:
-            that: wn19_ac_000030_resetlockoutcount | int is version('15', '>=')
-            fail_msg: "Must have the period of time before the bad logon counter is reset configured to 15 minutes or greater and variable wn19_ac_000030_resetlockoutcount is set to {{ wn19_ac_000030_resetlockoutcount }}"
-        ignore_errors: yes
-        tags: audit
-
-      - name: "MEDIUM | WN19-AC-000030 | PATCH | Windows Server 2019 must have the period of time before the bad logon counter is reset configured to 15 minutes or greater."
-        win_security_policy:
-            section: System Access
-            key: ResetLockoutCount
-            value: "{{ wn19_ac_000030_resetlockoutcount }}"
-        tags: patch
+- name: "MEDIUM | WN19-AC-000030 | PATCH | Windows Server 2019 must have the period of time before the bad logon counter is reset configured to 15 minutes or greater."
+  win_security_policy:
+      section: System Access
+      key: ResetLockoutCount
+      value: "{{ wn19_ac_000030_resetlockoutcount }}"
   when: wn19_ac_000030
   tags:
       - WN19-AC-000030
@@ -941,22 +922,13 @@
       - CCI-002238
       - medium
 
-- name: "MEDIUM | WN19-AC-000040 | Windows Server 2019 password history must be configured to 24 passwords remembered."
-  block:
-      - name: "MEDIUM | WN19-AC-000040 | AUDIT | Windows Server 2019 password history must be configured to 24 passwords remembered."
-        assert:
-            that: wn19_ac_000040_passwordhistorysize | int is version('24', '>=')
-            fail_msg: "Password history must be configured to 24 passwords remembered and variable wn19_ac_000040_passwordhistorysize is set to {{ wn19_ac_000040_passwordhistorysize }}"
-        ignore_errors: yes
-        tags: audit
-
-      - name: "MEDIUM | WN19-AC-000040 | PATCH | Windows Server 2019 password history must be configured to 24 passwords remembered."
-        win_security_policy:
-            section: System Access
-            key: PasswordHistorySize
-            value: "{{ wn19_ac_000040_passwordhistorysize }}"
-        tags: patch
-  when: wn19_ac_000040
+- name: "MEDIUM | WN19-AC-000040 | PATCH | Windows Server 2019 password history must be configured to 24 passwords remembered."
+  win_security_policy:
+      section: System Access
+      key: PasswordHistorySize
+      value: "{{ wn19_ac_000040_passwordhistorysize }}"
+  when:
+      - wn19_ac_000040
   tags:
       - WN19-AC-000040
       - V-93479
@@ -965,22 +937,13 @@
       - CCI-000200
       - medium
 
-- name: "MEDIUM | WN19-AC-000050 | Windows Server 2019 maximum password age must be configured to 60 days or less."
-  block:
-      - name: "MEDIUM | WN19-AC-000050 | AUDIT | Windows Server 2019 maximum password age must be configured to 60 days or less."
-        assert:
-            that: wn19_ac_000050_maximumpasswordage | int is version('60', '<=')
-            fail_msg: "Maximum password age must be configured to 60 days or less and variable wn19_ac_000050_maximumpasswordage is set to {{ wn19_ac_000050_maximumpasswordage }}"
-        ignore_errors: yes
-        tags: audit
-
-      - name: "MEDIUM | WN19-AC-000050 | PATCH | Windows Server 2019 maximum password age must be configured to 60 days or less."
-        win_security_policy:
-            section: System Access
-            key: MaximumPasswordAge
-            value: "{{ wn19_ac_000050_maximumpasswordage }}"
-        tags: patch
-  when: wn19_ac_000050
+- name: "MEDIUM | WN19-AC-000050 | PATCH | Windows Server 2019 maximum password age must be configured to 60 days or less."
+  win_security_policy:
+      section: System Access
+      key: MaximumPasswordAge
+      value: "{{ wn19_ac_000050_maximumpasswordage }}"
+  when:
+      - wn19_ac_000050
   tags:
       - WN19-AC-000050
       - V-93477
@@ -989,22 +952,13 @@
       - CCI-000199
       - medium
 
-- name: "MEDIUM | WN19-AC-000060 | Windows Server 2019 minimum password age must be configured to at least one day."
-  block:
-      - name: "MEDIUM | WN19-AC-000060 | AUDIT | Windows Server 2019 minimum password age must be configured to at least one day."
-        assert:
-            that: wn19_ac_000060_minimumpasswordage is version('1', '>=')
-            fail_msg: "Minimum password age must be configured to at least one day and variable wn19_ac_000060_minimumpasswordage is set to {{ wn19_ac_000060_minimumpasswordage }}"
-        ignore_errors: yes
-        tags: audit
-
-      - name: "MEDIUM | WN19-AC-000060 | PATCH | Windows Server 2019 minimum password age must be configured to at least one day."
-        win_security_policy:
-            section: System Access
-            key: MinimumPasswordAge
-            value: "{{ wn19_ac_000060_minimumpasswordage }}"
-        tags: patch
-  when: wn19_ac_000060
+- name: "MEDIUM | WN19-AC-000060 | PATCH | Windows Server 2019 minimum password age must be configured to at least one day."
+  win_security_policy:
+      section: System Access
+      key: MinimumPasswordAge
+      value: "{{ wn19_ac_000060_minimumpasswordage }}"
+  when:
+      - wn19_ac_000060
   tags:
       - WN19-AC-000060
       - V-93471
@@ -1013,21 +967,11 @@
       - CCI-000198
       - medium
 
-- name: "MEDIUM | WN19-AC-000070 | Windows Server 2019 minimum password length must be configured to 14 characters."
-  block:
-      - name: "MEDIUM | WN19-AC-000070 | AUDIT | Windows Server 2019 minimum password length must be configured to 14 characters."
-        assert:
-            that: wn19_ac_000070_minimumpasswordlength is version('14', '>=')
-            fail_msg: "Minimum password length must be configured to 14 characters and variable wn19_ac_000070_minimumpasswordlength is set to {{ wn19_ac_000070_minimumpasswordlength }} characters"
-        ignore_errors: yes
-        tags: audit
-
-      - name: "MEDIUM | WN19-AC-000070 | PATCH | Windows Server 2019 minimum password length must be configured to 14 characters."
-        win_security_policy:
-            section: System Access
-            key: MinimumPasswordLength
-            value: "{{ wn19_ac_000070_minimumpasswordlength }}"
-        tags: patch
+- name: "MEDIUM | WN19-AC-000070 | PATCH | Windows Server 2019 minimum password length must be configured to 14 characters."
+  win_security_policy:
+      section: System Access
+      key: MinimumPasswordLength
+      value: "{{ wn19_ac_000070_minimumpasswordlength }}"
   when: wn19_ac_000070
   tags:
       - WN19-AC-000070

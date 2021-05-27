@@ -22,3 +22,90 @@
 - name: check rdp is enabled
   debug:
       var: win2019_rdp_enabled.value
+
+# Assert that defaults have not been changed to lesser values that required by STIG
+
+- name: "MEDIUM | WN19-AC-000010 | AUDIT | Windows Server 2019 account lockout duration must be configured to 15 minutes or greater."
+  assert:
+      that: wn19_ac_000010_lockoutduration | int is version('15', '<=')
+      fail_msg: "Must have the period of time before the bad logon counter is reset configured to 15 minutes or greater and variable wn19_ac_000010_lockoutduration is set to {{ wn19_ac_000010_lockoutduration }}"
+  when:
+      - wn19_ac_000010
+  tags:
+      - WN19-AC-000010
+      - V-93145
+      - SRG-OS-000329-GPOS-00128
+      - SV-103233r1
+      - CCI-002238
+      - medium
+
+- name: "MEDIUM | WN19-AC-000030 | AUDIT | Windows Server 2019 must have the period of time before the bad logon counter is reset configured to 15 minutes or greater."
+  assert:
+      that: wn19_ac_000030_resetlockoutcount | int is version('15', '>=')
+      fail_msg: "Must have the period of time before the bad logon counter is reset configured to 15 minutes or greater and variable wn19_ac_000030_resetlockoutcount is set to {{ wn19_ac_000030_resetlockoutcount }}"
+  when:
+      - wn19_ac_000030
+  tags:
+      - WN19-AC-000030
+      - V-93143
+      - SRG-OS-000021-GPOS-00005
+      - SV-103231r1
+      - CCI-000044
+      - CCI-002238
+      - medium
+
+- name: "MEDIUM | WN19-AC-000040 | AUDIT | Windows Server 2019 password history must be configured to 24 passwords remembered."
+  assert:
+      that: wn19_ac_000040_passwordhistorysize | int is version('24', '>=')
+      fail_msg: "Password history must be configured to 24 passwords remembered and variable wn19_ac_000040_passwordhistorysize is set to {{ wn19_ac_000040_passwordhistorysize }}"
+  when:
+      - wn19_ac_000040
+  tags:
+      - WN19-AC-000040
+      - V-93479
+      - SRG-OS-000077-GPOS-00045
+      - SV-103565r1
+      - CCI-000200
+      - medium
+
+- name: "MEDIUM | WN19-AC-000050 | AUDIT | Windows Server 2019 maximum password age must be configured to 60 days or less."
+  assert:
+      that: wn19_ac_000050_maximumpasswordage | int is version('60', '<=')
+      fail_msg: "Maximum password age must be configured to 60 days or less and variable wn19_ac_000050_maximumpasswordage is set to {{ wn19_ac_000050_maximumpasswordage }}"
+  when:
+      - wn19_ac_000050
+  tags:
+      - WN19-AC-000050
+      - V-93477
+      - SRG-OS-000076-GPOS-00044
+      - SV-103563r1
+      - CCI-000199
+      - medium
+
+- name: "MEDIUM | WN19-AC-000060 | AUDIT | Windows Server 2019 minimum password age must be configured to at least one day."
+  assert:
+      that: wn19_ac_000060_minimumpasswordage is version('1', '>=')
+      fail_msg: "Minimum password age must be configured to at least one day and variable wn19_ac_000060_minimumpasswordage is set to {{ wn19_ac_000060_minimumpasswordage }}"
+  when:
+      - wn19_ac_000060
+  tags:
+      - WN19-AC-000060
+      - V-93471
+      - SRG-OS-000075-GPOS-00043
+      - SV-103557r1
+      - CCI-000198
+      - medium
+
+- name: "MEDIUM | WN19-AC-000070 | AUDIT | Windows Server 2019 minimum password length must be configured to 14 characters."
+  assert:
+      that: wn19_ac_000070_minimumpasswordlength is version('14', '>=')
+      fail_msg: "Minimum password length must be configured to 14 characters and variable wn19_ac_000070_minimumpasswordlength is set to {{ wn19_ac_000070_minimumpasswordlength }} characters"
+  when:
+      - wn19_ac_000070
+  tags:
+      - WN19-AC-000070
+      - V-93463
+      - SRG-OS-000078-GPOS-00046
+      - SV-103549r1
+      - CCI-000205
+      - medium
