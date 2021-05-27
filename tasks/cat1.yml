@@ -52,9 +52,9 @@
 
 - name: "MEDIUM | WN19-AC-000090 | Windows Server 2019 reversible password encryption must be disabled."
   win_security_policy:
-    section: System Access
-    key: ClearTextPassword
-    value: "0"
+      section: System Access
+      key: ClearTextPassword
+      value: "0"
   changed_when: no
   when: wn19_ac_000090
   tags:
@@ -352,9 +352,9 @@
 
 - name: "HIGH | WN19-UR-000020 | Windows Server 2019 Act as part of the operating system user right must not be assigned to any groups or accounts."
   win_user_right:
-    name: SeTcbPrivilege
-    users: []
-    action: set
+      name: SeTcbPrivilege
+      users: []
+      action: set
   when: wn19_ur_000020
   tags:
       - WN19-UR-000020
