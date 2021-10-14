@@ -15,6 +15,8 @@
           - ansible_distribution | regex_search('(Microsoft Windows Server 2019)')
       success_msg: "{{ ansible_distribution }} {{ ansible_distribution_major_version }} is the detected operating system."
       fail_msg: "This role can only be run against Windows Server 2019 Editions. {{ ansible_distribution }} {{ ansible_distribution_major_version }} is not supported."
+  when:
+      - not win2019stig_skip_os_check
   tags:
       - always
 

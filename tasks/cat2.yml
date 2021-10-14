@@ -564,7 +564,9 @@
         changed_when: no
         when: is_implemented
         tags: patch
-  when: wn19_00_000270
+  when:
+      - wn19_00_000270
+      - "'Server' in ansible_distribution"
   tags:
       - WN19-00-000270
       - V-93381
@@ -654,7 +656,9 @@
     name: Fax
     state: absent
   notify: reboot_windows
-  when: wn19_00_000320
+  when: 
+      - wn19_00_000320
+      - "'Server' in ansible_distribution"
   tags:
       - WN19-00-000320
       - V-93383
@@ -669,7 +673,9 @@
       name: Web-Ftp-Server
       state: absent
   notify: reboot_windows
-  when: wn19_00_000330
+  when:
+      - wn19_00_000330
+      - "'Server' in ansible_distribution"
   tags:
       - WN19-00-000330
       - V-93421
@@ -684,7 +690,9 @@
       name: PNRP
       state: absent
   notify: reboot_windows
-  when: wn19_00_000340
+  when:
+      - wn19_00_000340
+      - "'Server' in ansible_distribution"
   tags:
       - WN19-00-000340
       - V-93385
@@ -695,9 +703,18 @@
       - medium
 
 - name: "MEDIUM | WN19-00-000350 | Windows Server 2019 must not have Simple TCP/IP Services installed."
-  win_feature:
-      name: Simple-TCPIP
-      state: absent
+  block:
+      - name: "MEDIUM | WN19-00-000350 | Windows Server 2019 must not have Simple TCP/IP Services installed. | Remove from Server 2019"
+        win_feature:
+            name: Simple-TCPIP
+            state: absent
+        when: "'Server' in ansible_distribution"
+
+      - name: "MEDIUM | WN19-00-000350 | Windows Server 2019 must not have Simple TCP/IP Services installed. | Remove from Windows 10"
+        win_optional_feature:
+            name: SimpleTCP
+            state: absent
+        when: "'Server' not in ansible_distribution"
   when: wn19_00_000350
   tags:
       - WN19-00-000350
@@ -709,9 +726,18 @@
       - medium
 
 - name: "MEDIUM | WN19-00-000360 | Windows Server 2019 must not have the Telnet Client installed."
-  win_feature:
-      name: Telnet-Client
-      state: absent
+  block:
+      - name: "MEDIUM | WN19-00-000360 | Windows Server 2019 must not have the Telnet Client installed. | Remove from Server 2019"
+        win_feature:
+            name: Telnet-Client
+            state: absent
+        when: "'Server' in ansible_distribution"
+
+      - name: "MEDIUM | WN19-00-000360 | Windows Server 2019 must not have the Telnet Client installed. | Remove from Windows 10"
+        win_optional_feature:
+            name: TelnetClient
+            state: absent
+        when: "'Server' not in ansible_distribution"
   when: wn19_00_000360
   tags:
       - WN19-00-000360
@@ -723,9 +749,18 @@
       - medium
 
 - name: "MEDIUM | WN19-00-000370 | Windows Server 2019 must not have the TFTP Client installed."
-  win_feature:
-      name: TFTP-Client
-      state: absent
+  block:
+      - name: "MEDIUM | WN19-00-000370 | Windows Server 2019 must not have the TFTP Client installed. | Remove from Server 2019"
+        win_feature:
+            name: TFTP-Client
+            state: absent
+        when: "'Server' in ansible_distribution"
+
+      - name: "MEDIUM | WN19-00-000370 | Windows Server 2019 must not have the TFTP Client installed. | Remove from Windows 10"
+        win_optional_feature:
+            name: TFTP
+            state: absent
+        when: "'Server' not in ansible_distribution"
   when: wn19_00_000370
   tags:
       - WN19-00-000370
@@ -737,11 +772,22 @@
       - medium
 
 - name: "MEDIUM | WN19-00-000380 | Windows Server 2019 must not the Server Message Block (SMB) v1 protocol installed."
-  win_feature:
-      name: FS-SMB1
-      state: absent
-  register: wn19_00_000380_register
-  notify: reboot_windows
+  block:
+      - name: "MEDIUM | WN19-00-000380 | Windows Server 2019 must not the Server Message Block (SMB) v1 protocol installed. | Remove from Server 2019"
+        win_feature:
+            name: FS-SMB1
+            state: absent
+        register: wn19_00_000380_svr_register
+        notify: reboot_windows
+        when: "'Server' in ansible_distribution"
+
+      - name: "MEDIUM | WN19-00-000380 | Windows Server 2019 must not the Server Message Block (SMB) v1 protocol installed. | Remove from Windows 10"
+        win_optional_feature:
+            name: SMB1Protocol
+            state: absent
+        register: wn19_00_000380_w10_register
+        notify: reboot_windows
+        when: "'Server' not in ansible_distribution"
   when: wn19_00_000380
   tags:
       - WN19-00-000380
@@ -789,9 +835,18 @@
       - medium
 
 - name: "MEDIUM | WN19-00-000410 | Windows Server 2019 must not have Windows PowerShell 2.0 installed."
-  win_feature:
-      name: PowerShell-V2
-      state: absent
+  block:
+      - name: "MEDIUM | WN19-00-000410 | Windows Server 2019 must not have Windows PowerShell 2.0 installed. | Remove from Server 2019"
+        win_feature:
+            name: PowerShell-V2
+            state: absent
+        when: "'Server' in ansible_distribution"
+
+      - name: "MEDIUM | WN19-00-000410 | Windows Server 2019 must not have Windows PowerShell 2.0 installed. | Remove from Windows 10"
+        win_optional_feature:
+            name: MicrosoftWindowsPowerShellV2
+            state: absent
+        when: "'Server' not in ansible_distribution"
   when: wn19_00_000410
   tags:
       - WN19-00-000410
