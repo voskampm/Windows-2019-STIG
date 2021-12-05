@@ -1,0 +1,17 @@
+---
+
+- name: Converge
+  hosts: all
+  vars:
+    ansible_connection: winrm
+    ansible_winrm_transport: credssp
+    ansible_winrm_server_cert_validation: ignore
+    ansible_user: "{{ molecule_yml.azure_vm_user_name }}"
+    ansible_password: "{{ molecule_yml.azure_vm_user_password }}"
+  tasks:
+    - name: Include tested role
+      include_role:
+        name: "Windows-2019-STIG"
+      vars:
+        # Prevent: fatal: [winserv2019]: UNREACHABLE! => {"changed": false, "msg": "credssp: Received error status from the server: (3221225581) STATUS_LOGON_FAILURE 0xc000006d", "unreachable": true}
+        wn19_so_000030: false

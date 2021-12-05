@@ -1,0 +1,6 @@
+---
+# tasks file for Windows-2019-STIG
+
+- name: Replace this task with useful code
+  assert:
+    that: true

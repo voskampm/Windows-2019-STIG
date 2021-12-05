@@ -3,6 +3,9 @@ galaxy_info:
     author: Ryan Speelman
     description: Apply the DISA Windows Server 2019 STIG
     company: "MindPoint Group"
+    role_name: windows_2019_stig
+    namespace: community
+
     license: MIT
     min_ansible_version: 2.6
 
