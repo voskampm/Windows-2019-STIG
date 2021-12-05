@@ -552,7 +552,7 @@
 
 - name: "MEDIUM | WN19-00-000270 | Windows Server 2019 must have the roles and features required by the system documented."
   block:
-      - name: "MEDIUM | WN19-00-000270 | AUDIT | Windows Server 2019 bust have the roles and features required by the system documented."
+      - name: "MEDIUM | WN19-00-000270 | AUDIT | Windows Server 2019 must have the roles and features required by the system documented."
         win_shell: Get-WindowsFeature | Where-Object -FilterScript {$_.Installed -EQ $True}
         register: wn19_00_000270_audit
         check_mode: no
@@ -736,7 +736,7 @@
       - patch
       - medium
 
-- name: "MEDIUM | WN19-00-000380 | Windows Server 2019 must not the Server Message Block (SMB) v1 protocol installed."
+- name: "MEDIUM | WN19-00-000380 | Windows Server 2019 must not have the Server Message Block (SMB) v1 protocol installed."
   win_feature:
       name: FS-SMB1
       state: absent
