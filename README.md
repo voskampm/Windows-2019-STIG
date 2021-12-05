@@ -1,3 +1,18 @@
+== None idempotent ==
+The tasks below are not idempotent:
+
+* TASK [Windows-2019-STIG : MEDIUM | WN19-SO-000360 | Windows Server 2019 must be configured to use FIPS-compliant algorithms for encryption, hashing, and signing.] ***
+  changed: [winserv2019]
+  
+* TASK [Windows-2019-STIG : LOW | WN19-SO-000370 | Windows Server 2019 default permissions of global system objects must be strengthened.] ***
+  changed: [winserv2019]
+
+Possibke causes:
+* Azure agent reverts changes
+*  Bot task do the same thing but in a different way
+*  ??
+
+
 Windows Server 2019 DISA STIG
 =========
 ![Build Status](https://img.shields.io/github/workflow/status/ansible-lockdown/Windows-2019-STIG/CommunityToDevel?label=Devel%20Build%20Status&style=plastic)
